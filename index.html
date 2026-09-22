@@ -44,12 +44,12 @@
     .brand-box {
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 14px;
       margin-bottom: 14px;
     }
 
     .logo-container {
-      height: 48px;
+      height: 62px;
       display: flex;
       align-items: center;
       flex-shrink: 0;
@@ -60,13 +60,13 @@
     }
 
     .header-title h1 { 
-      font-size: 1.2rem; 
+      font-size: 1.5rem; 
       font-weight: 800; 
       color: var(--primary); 
       line-height: 1.2;
     }
     .header-title p { 
-      font-size: 0.85rem; 
+      font-size: 1rem; 
       color: var(--text-muted); 
       font-weight: 600;
     }
@@ -78,17 +78,17 @@
 
     .btn {
       flex: 1;
-      padding: 12px; 
+      padding: 10px; 
       border-radius: 10px; 
-      font-size: 0.95rem; 
+      font-size: 0.82rem; 
       font-weight: 700;
       cursor: pointer; 
       border: none; 
       display: flex; 
       align-items: center; 
       justify-content: center;
-      gap: 8px; 
-      min-height: 48px;
+      gap: 6px; 
+      min-height: 40px;
     }
     .btn-primary { background: var(--primary); color: #fff; }
     .btn-secondary { background: #E2E8F0; color: var(--text-main); }
@@ -97,17 +97,17 @@
 
     .legend-bar {
       background: var(--card-bg);
-      padding: 12px 16px;
+      padding: 10px 16px;
       border-radius: 12px;
       border: 1px solid var(--border-color);
       margin-bottom: 12px;
       display: flex;
       justify-content: space-around;
-      font-size: 0.88rem;
+      font-size: 0.75rem;
       font-weight: 700;
     }
-    .legend-item { display: flex; align-items: center; gap: 6px; }
-    .legend-dot { width: 14px; height: 14px; border-radius: 50%; }
+    .legend-item { display: flex; align-items: center; gap: 5px; }
+    .legend-dot { width: 10px; height: 10px; border-radius: 50%; }
     .dot-johan { background-color: var(--dir-johan); }
     .dot-chris { background-color: var(--dir-chris); }
     .dot-both { background-color: var(--dir-both); }
@@ -125,10 +125,10 @@
       background: var(--card-bg); 
       border: 2px solid var(--border-color);
       color: var(--text-muted); 
-      padding: 10px 16px; 
+      padding: 8px 14px; 
       border-radius: 20px;
       font-weight: 700; 
-      font-size: 0.9rem; 
+      font-size: 0.8rem; 
       white-space: nowrap; 
       flex-shrink: 0;
     }
@@ -168,9 +168,9 @@
     
     .date-header { 
       background: #E2E8F0; 
-      padding: 12px 16px; 
+      padding: 10px 14px; 
       font-weight: 800; 
-      font-size: 1rem; 
+      font-size: 0.88rem; 
       color: var(--primary); 
       border-bottom: 1px solid var(--border-color); 
       display: flex;
@@ -201,7 +201,7 @@
 
     .time-badge { 
       font-weight: 800; 
-      font-size: 1rem; 
+      font-size: 0.85rem; 
       color: var(--primary); 
       background: #F1F5F9;
       padding: 4px 10px;
@@ -209,10 +209,10 @@
     }
 
     .status-badge {
-      padding: 6px 12px; 
+      padding: 5px 10px; 
       border-radius: 20px; 
       font-weight: 800; 
-      font-size: 0.8rem;
+      font-size: 0.7rem;
     }
     .status-CONFIRMED { background: #DCFCE7; color: #15803D; }
     .status-TBC { background: #FEF9C3; color: #A16207; }
@@ -221,7 +221,7 @@
     .status-DONE { background: #E2E8F0; color: #475569; }
 
     .agenda-title { 
-      font-size: 1.1rem; 
+      font-size: 0.98rem; 
       font-weight: 700; 
       color: var(--text-main); 
       line-height: 1.3;
@@ -231,7 +231,7 @@
       display: flex;
       flex-direction: column;
       gap: 6px;
-      font-size: 0.92rem;
+      font-size: 0.82rem;
       color: var(--text-muted);
       font-weight: 600;
       background: #F8FAFC;
@@ -299,7 +299,7 @@
           <i class="fa-solid fa-lock"></i> Admin
         </button>
       </div>
-      <div id="syncStatus" style="font-size:.78rem;font-weight:700;color:#64748B;margin-top:8px;text-align:right;">
+      <div id="syncStatus" style="font-size:.72rem;font-weight:700;color:#64748B;margin-top:8px;text-align:right;">
         <i class="fa-solid fa-circle-notch fa-spin"></i> Connecting...
       </div>
     </header>
@@ -330,9 +330,9 @@
         <div class="form-group">
           <label>Director</label>
           <select id="fDirector" required>
-            <option value="Pak Johan">Mr. Johan</option>
-            <option value="Pak Chris">Mr. Chris</option>
-            <option value="Pak Johan & Pak Chris">Mr. Johan & Mr. Chris</option>
+            <option value="Pak Johan">Pak Johan</option>
+            <option value="Pak Chris">Pak Chris</option>
+            <option value="Pak Johan & Pak Chris">Pak Johan & Pak Chris</option>
           </select>
         </div>
         <div class="form-group">
@@ -385,8 +385,8 @@
     </div>
 
     <div class="legend-bar">
-      <div class="legend-item"><span class="legend-dot dot-johan"></span> Mr. Johan</div>
-      <div class="legend-item"><span class="legend-dot dot-chris"></span> Mr. Chris</div>
+      <div class="legend-item"><span class="legend-dot dot-chris"></span> Pak Chris</div>
+      <div class="legend-item"><span class="legend-dot dot-johan"></span> Pak Johan</div>
       <div class="legend-item"><span class="legend-dot dot-both"></span> Both</div>
     </div>
 
