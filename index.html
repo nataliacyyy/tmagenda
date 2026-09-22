@@ -1,0 +1,740 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Board of Directors Agenda - Tangara Mitrakom</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <style>
+    :root {
+      --bg-body: #F1F5F9;
+      --card-bg: #FFFFFF;
+      --text-main: #0F172A;
+      --text-muted: #334155;
+      --border-color: #CBD5E1;
+      --primary: #0A2540;
+      
+      --dir-johan: #0284C7;
+      --dir-chris: #D97706;
+      --dir-both: #059669;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; }
+    
+    body { 
+      background-color: var(--bg-body); 
+      color: var(--text-main); 
+      padding: 12px; 
+      line-height: 1.5;
+      max-width: 980px;
+      margin: 0 auto;
+    }
+
+    header {
+      background: var(--card-bg);
+      padding: 16px;
+      border-radius: 16px;
+      border: 1px solid var(--border-color);
+      margin-bottom: 12px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.04);
+    }
+
+    .brand-box {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 14px;
+    }
+
+    .logo-container {
+      height: 48px;
+      display: flex;
+      align-items: center;
+      flex-shrink: 0;
+    }
+    .logo-container svg {
+      height: 100%;
+      width: auto;
+    }
+
+    .header-title h1 { 
+      font-size: 1.2rem; 
+      font-weight: 800; 
+      color: var(--primary); 
+      line-height: 1.2;
+    }
+    .header-title p { 
+      font-size: 0.85rem; 
+      color: var(--text-muted); 
+      font-weight: 600;
+    }
+
+    .header-actions { 
+      display: flex; 
+      gap: 8px; 
+    }
+
+    .btn {
+      flex: 1;
+      padding: 12px; 
+      border-radius: 10px; 
+      font-size: 0.95rem; 
+      font-weight: 700;
+      cursor: pointer; 
+      border: none; 
+      display: flex; 
+      align-items: center; 
+      justify-content: center;
+      gap: 8px; 
+      min-height: 48px;
+    }
+    .btn-primary { background: var(--primary); color: #fff; }
+    .btn-secondary { background: #E2E8F0; color: var(--text-main); }
+    .btn-history { background: #475569; color: #fff; }
+    .btn-history.active { background: #0F172A; }
+
+    .legend-bar {
+      background: var(--card-bg);
+      padding: 12px 16px;
+      border-radius: 12px;
+      border: 1px solid var(--border-color);
+      margin-bottom: 12px;
+      display: flex;
+      justify-content: space-around;
+      font-size: 0.88rem;
+      font-weight: 700;
+    }
+    .legend-item { display: flex; align-items: center; gap: 6px; }
+    .legend-dot { width: 14px; height: 14px; border-radius: 50%; }
+    .dot-johan { background-color: var(--dir-johan); }
+    .dot-chris { background-color: var(--dir-chris); }
+    .dot-both { background-color: var(--dir-both); }
+
+    .month-nav {
+      display: flex; 
+      gap: 8px; 
+      overflow-x: auto; 
+      padding-bottom: 8px;
+      margin-bottom: 12px; 
+      scrollbar-width: none;
+    }
+    .month-nav::-webkit-scrollbar { display: none; }
+    .m-btn {
+      background: var(--card-bg); 
+      border: 2px solid var(--border-color);
+      color: var(--text-muted); 
+      padding: 10px 16px; 
+      border-radius: 20px;
+      font-weight: 700; 
+      font-size: 0.9rem; 
+      white-space: nowrap; 
+      flex-shrink: 0;
+    }
+    .m-btn.active { 
+      background: var(--primary); 
+      color: #fff; 
+      border-color: var(--primary); 
+    }
+
+    .admin-panel {
+      background: #FFF; 
+      border: 2px solid var(--primary);
+      padding: 16px; 
+      border-radius: 16px; 
+      margin-bottom: 16px; 
+      display: none;
+    }
+    .admin-panel.active { display: block; }
+    .form-group { margin-bottom: 12px; display: flex; flex-direction: column; gap: 4px; }
+    .form-group label { font-size: 0.85rem; font-weight: 700; color: var(--text-main); }
+    .form-group input, .form-group select, .form-group textarea {
+      padding: 12px; 
+      border: 1px solid var(--border-color); 
+      border-radius: 8px; 
+      font-size: 0.95rem;
+      width: 100%;
+    }
+
+    .agenda-list { display: flex; flex-direction: column; gap: 14px; }
+    .date-group { 
+      background: var(--card-bg); 
+      border: 1px solid var(--border-color); 
+      border-radius: 16px; 
+      overflow: hidden; 
+      box-shadow: 0 2px 4px rgba(0,0,0,0.03);
+    }
+    
+    .date-header { 
+      background: #E2E8F0; 
+      padding: 12px 16px; 
+      font-weight: 800; 
+      font-size: 1rem; 
+      color: var(--primary); 
+      border-bottom: 1px solid var(--border-color); 
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .item-card {
+      padding: 16px; 
+      border-bottom: 1px solid var(--border-color);
+      display: flex; 
+      flex-direction: column; 
+      gap: 10px; 
+      position: relative; 
+      border-left: 8px solid transparent;
+    }
+    .item-card:last-child { border-bottom: none; }
+
+    .item-card.dir-johan { border-left-color: var(--dir-johan); }
+    .item-card.dir-chris { border-left-color: var(--dir-chris); }
+    .item-card.dir-both { border-left-color: var(--dir-both); }
+
+    .card-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .time-badge { 
+      font-weight: 800; 
+      font-size: 1rem; 
+      color: var(--primary); 
+      background: #F1F5F9;
+      padding: 4px 10px;
+      border-radius: 6px;
+    }
+
+    .status-badge {
+      padding: 6px 12px; 
+      border-radius: 20px; 
+      font-weight: 800; 
+      font-size: 0.8rem;
+    }
+    .status-CONFIRMED { background: #DCFCE7; color: #15803D; }
+    .status-TBC { background: #FEF9C3; color: #A16207; }
+    .status-CANCELLED { background: #FEE2E2; color: #B91C1C; }
+    .status-POSTPONE { background: #FFEDD5; color: #C2410C; }
+    .status-DONE { background: #E2E8F0; color: #475569; }
+
+    .agenda-title { 
+      font-size: 1.1rem; 
+      font-weight: 700; 
+      color: var(--text-main); 
+      line-height: 1.3;
+    }
+
+    .agenda-info {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      font-size: 0.92rem;
+      color: var(--text-muted);
+      font-weight: 600;
+      background: #F8FAFC;
+      padding: 10px;
+      border-radius: 8px;
+    }
+    .info-row { display: flex; align-items: flex-start; gap: 8px; }
+    .info-row i { width: 18px; margin-top: 3px; color: var(--primary); }
+
+    .admin-note-box {
+      display: none; 
+      background: #FEF3C7; 
+      border: 1px dashed #D97706;
+      color: #78350F; 
+      padding: 10px; 
+      border-radius: 8px;
+      font-size: 0.88rem; 
+      font-weight: 600;
+    }
+    .admin-mode-active .admin-note-box { display: block; }
+
+    .admin-actions { 
+      display: none; 
+      gap: 8px; 
+      margin-top: 6px; 
+    }
+    .admin-mode-active .admin-actions { display: flex; }
+
+    .empty-state { 
+      text-align: center; 
+      padding: 40px 20px; 
+      color: var(--text-muted); 
+      background: var(--card-bg); 
+      border-radius: 16px; 
+      border: 2px dashed var(--border-color);
+      font-size: 1rem;
+      font-weight: 600;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="appContainer">
+    <header>
+      <div class="brand-box">
+        <div class="logo-container">
+          <svg viewBox="0 0 210 90" xmlns="http://www.w3.org/2000/svg">
+            <ellipse cx="65" cy="45" rx="58" ry="34" fill="none" stroke="#48C0F0" stroke-width="6.5" transform="rotate(-22 65 45)"/>
+            <path d="M 22,29 L 55,29 L 47,44 L 41,44 L 34,70 L 22,70 L 29,44 L 22,44 Z" fill="#0A3E6B" />
+            <path d="M 46,70 L 61,29 L 75,29 L 81,51 L 96,29 L 109,29 L 98,70 L 86,70 L 92,45 L 77,70 L 69,70 L 63,45 L 57,70 Z" fill="#0A3E6B" />
+            <text x="122" y="44" font-family="'Inter', sans-serif" font-size="13" font-weight="600" fill="#71717A">Powering</text>
+            <text x="122" y="60" font-family="'Inter', sans-serif" font-size="13" font-weight="600" fill="#71717A">Communication</text>
+          </svg>
+        </div>
+        <div class="header-title">
+          <h1 id="pageTitle">Directors Agenda</h1>
+          <p id="pageSubtitle">Tangara Mitrakom</p>
+        </div>
+      </div>
+      <div class="header-actions">
+        <button class="btn btn-history" id="historyToggleBtn" onclick="toggleHistoryMode()">
+          <i class="fa-solid fa-clock-rotate-left"></i> History
+        </button>
+        <button class="btn btn-secondary" id="adminToggleBtn" onclick="toggleAdminMode()">
+          <i class="fa-solid fa-lock"></i> Admin
+        </button>
+      </div>
+      <div id="syncStatus" style="font-size:.78rem;font-weight:700;color:#64748B;margin-top:8px;text-align:right;">
+        <i class="fa-solid fa-circle-notch fa-spin"></i> Connecting...
+      </div>
+    </header>
+
+
+    <div class="admin-panel" id="loginPanel" style="display:none;">
+      <h3 style="font-size:1.05rem; margin-bottom:12px; color:var(--primary);">
+        <i class="fa-solid fa-shield-halved"></i> Admin Login
+      </h3>
+      <form id="loginForm" onsubmit="handleLogin(event)">
+        <div class="form-group">
+          <label>Admin Password</label>
+          <input type="password" id="adminPassword" autocomplete="current-password" required placeholder="Enter admin password">
+        </div>
+        <div style="display:flex; gap:8px; margin-top:14px;">
+          <button type="submit" class="btn btn-primary"><i class="fa-solid fa-right-to-bracket"></i> Login</button>
+          <button type="button" class="btn btn-secondary" onclick="closeLogin()">Cancel</button>
+        </div>
+      </form>
+    </div>
+
+    <div class="admin-panel" id="adminPanel">
+      <h3 style="font-size:1.05rem; margin-bottom:12px; color:var(--primary);">
+        <i class="fa-solid fa-pen-to-square"></i> Agenda Form
+      </h3>
+      <form id="agendaForm" onsubmit="handleFormSubmit(event)">
+        <input type="hidden" id="editId">
+        <div class="form-group">
+          <label>Director</label>
+          <select id="fDirector" required>
+            <option value="Pak Johan">Mr. Johan</option>
+            <option value="Pak Chris">Mr. Chris</option>
+            <option value="Pak Johan & Pak Chris">Mr. Johan & Mr. Chris</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Agenda Title</label>
+          <input type="text" id="fTitle" required placeholder="Example: Board Meeting">
+        </div>
+        <div class="form-group">
+          <label>Date</label>
+          <input type="date" id="fDate" required>
+        </div>
+        <div class="form-group">
+          <label>Start Time</label>
+          <input type="time" id="fStartTime" required>
+        </div>
+        <div class="form-group">
+          <label>End Time (Optional)</label>
+          <input type="time" id="fEndTime">
+        </div>
+        <div class="form-group">
+          <label>Location / Venue</label>
+          <input type="text" id="fLocation" placeholder="Example: Meeting Room 2nd Floor">
+        </div>
+        <div class="form-group">
+          <label>Internal PIC</label>
+          <input type="text" id="fPicInternal" placeholder="Internal Person in Charge">
+        </div>
+        <div class="form-group">
+          <label>External PIC / Client</label>
+          <input type="text" id="fPicExternal" placeholder="Client / Guest Name">
+        </div>
+        <div class="form-group">
+          <label>Agenda Status</label>
+          <select id="fStatus">
+            <option value="CONFIRMED">CONFIRMED</option>
+            <option value="TBC">TBC</option>
+            <option value="POSTPONE">POSTPONE</option>
+            <option value="CANCELLED">CANCELLED</option>
+            <option value="DONE">DONE</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label style="color:#B91C1C;">Notes (Admin Only - Hidden from Viewers)</label>
+          <textarea id="fNotes" rows="2" placeholder="Internal admin notes..."></textarea>
+        </div>
+        <div style="display:flex; gap:8px; margin-top:14px;">
+          <button type="submit" class="btn btn-primary"><i class="fa-solid fa-floppy-disk"></i> Save</button>
+          <button type="button" class="btn btn-secondary" onclick="resetForm()">Cancel</button>
+        </div>
+      </form>
+    </div>
+
+    <div class="legend-bar">
+      <div class="legend-item"><span class="legend-dot dot-johan"></span> Mr. Johan</div>
+      <div class="legend-item"><span class="legend-dot dot-chris"></span> Mr. Chris</div>
+      <div class="legend-item"><span class="legend-dot dot-both"></span> Both</div>
+    </div>
+
+    <div class="month-nav" id="monthNav"></div>
+
+    <div class="agenda-list" id="agendaList"></div>
+  </div>
+
+<script>
+(() => {
+  "use strict";
+
+  const API = "/api/agendas";
+  const AUTH_API = "/api/auth";
+  const monthsName = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+
+  let agendas = [];
+  let isAdmin = false;
+  let isHistoryView = false;
+  let currentMonth = new Date().toLocaleDateString("en-CA", {year:"numeric", month:"2-digit"});
+  let pollTimer = null;
+  let lastRevision = null;
+
+  const $ = (id) => document.getElementById(id);
+
+  function escapeHTML(value) {
+    return String(value ?? "").replace(/[&<>"']/g, ch => ({
+      "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"
+    }[ch]));
+  }
+
+  function localDateKey(date = new Date()) {
+    const y = date.getFullYear();
+    const m = String(date.getMonth()+1).padStart(2,"0");
+    const d = String(date.getDate()).padStart(2,"0");
+    return `${y}-${m}-${d}`;
+  }
+
+  function isPastDate(dateStr) {
+    return Boolean(dateStr) && dateStr < localDateKey();
+  }
+
+  function statusIsHistory(status) {
+    return status === "DONE" || status === "CANCELLED";
+  }
+
+  function getDirectorClass(director) {
+    const s = String(director || "").toLowerCase();
+    if (s.includes("johan") && s.includes("chris")) return "dir-both";
+    if (s.includes("chris")) return "dir-chris";
+    return "dir-johan";
+  }
+
+  function expandForMonth(items, monthKey) {
+    const expanded = [];
+    for (const item of items) {
+      if (item.date && item.date.startsWith(monthKey)) {
+        expanded.push({...item, occurrenceDate: item.date});
+      }
+    }
+    return expanded;
+  }
+
+  function isHistoryOccurrence(item) {
+    return statusIsHistory(item.status) || isPastDate(item.occurrenceDate);
+  }
+
+  async function fetchState(force=false) {
+    try {
+      const res = await fetch(API + "?t=" + Date.now(), {
+        cache:"no-store",
+        headers: {"Accept":"application/json"}
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || "Failed to load agenda data.");
+      const revision = data.revision || data.updatedAt || JSON.stringify(data.agendas || []);
+      if (force || revision !== lastRevision) {
+        lastRevision = revision;
+        agendas = Array.isArray(data.agendas) ? data.agendas : [];
+        window.agendas = agendas;
+        renderMonthNav();
+        renderAgendas();
+      }
+      setSyncStatus(true, data.updatedAt);
+    } catch (err) {
+      setSyncStatus(false, err.message);
+    }
+  }
+
+  function startPolling() {
+    if (pollTimer) clearInterval(pollTimer);
+    pollTimer = setInterval(() => fetchState(false), 2500);
+  }
+
+  function setSyncStatus(ok, updatedAt) {
+    const el = $("syncStatus");
+    if (!el) return;
+    if (ok) {
+      const t = updatedAt ? new Date(updatedAt).toLocaleTimeString("en-ID",{hour:"2-digit",minute:"2-digit",second:"2-digit"}) : "";
+      el.innerHTML = `<i class="fa-solid fa-circle-check" style="color:#16A34A;"></i> Synced${t ? " • " + t : ""}`;
+      el.style.color = "#15803D";
+    } else {
+      el.innerHTML = `<i class="fa-solid fa-triangle-exclamation" style="color:#DC2626;"></i> Sync error`;
+      el.style.color = "#B91C1C";
+    }
+  }
+
+  async function checkAdmin() {
+    try {
+      const r = await fetch(AUTH_API + "?action=me&t=" + Date.now(), {cache:"no-store"});
+      const d = await r.json();
+      isAdmin = Boolean(d.admin);
+      updateAdminUI();
+    } catch (_) {
+      isAdmin = false;
+      updateAdminUI();
+    }
+  }
+
+  function updateAdminUI() {
+    const btn = $("adminToggleBtn");
+    const panel = $("adminPanel");
+    if (isAdmin) {
+      btn.innerHTML = `<i class="fa-solid fa-unlock"></i> Exit Admin`;
+      panel.classList.add("active");
+      $("appContainer").classList.add("admin-mode-active");
+    } else {
+      btn.innerHTML = `<i class="fa-solid fa-lock"></i> Admin`;
+      panel.classList.remove("active");
+      $("appContainer").classList.remove("admin-mode-active");
+    }
+    renderAgendas();
+  }
+
+  function toggleAdminMode() {
+    if (isAdmin) {
+      fetch(AUTH_API, {method:"DELETE"}).finally(() => {
+        isAdmin = false;
+        updateAdminUI();
+        resetForm();
+      });
+    } else {
+      $("loginPanel").style.display = "block";
+      $("adminPassword").focus();
+    }
+  }
+
+  async function handleLogin(e) {
+    e.preventDefault();
+    const password = $("adminPassword").value;
+    try {
+      const r = await fetch(AUTH_API, {
+        method:"POST",
+        headers:{"Content-Type":"application/json"},
+        body:JSON.stringify({password})
+      });
+      const d = await r.json();
+      if (!r.ok) throw new Error(d.error || "Login failed.");
+      $("loginPanel").style.display = "none";
+      $("adminPassword").value = "";
+      isAdmin = true;
+      updateAdminUI();
+    } catch (err) {
+      alert(err.message);
+    }
+  }
+
+  function closeLogin() {
+    $("loginPanel").style.display = "none";
+    $("adminPassword").value = "";
+  }
+
+  function toggleHistoryMode() {
+    isHistoryView = !isHistoryView;
+    const btn = $("historyToggleBtn");
+    $("pageTitle").innerText = isHistoryView ? "Agenda History" : "Directors Agenda";
+    btn.classList.toggle("active", isHistoryView);
+    btn.innerHTML = isHistoryView
+      ? `<i class="fa-solid fa-calendar-day"></i> Active Agenda`
+      : `<i class="fa-solid fa-clock-rotate-left"></i> History`;
+    renderAgendas();
+  }
+
+  function renderMonthNav() {
+    const nav = $("monthNav");
+    nav.innerHTML = "";
+    const today = new Date();
+    for (let i=0;i<12;i++) {
+      const d = new Date(today.getFullYear(), today.getMonth()+i, 1);
+      const key = `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}`;
+      const btn = document.createElement("button");
+      btn.className = `m-btn ${currentMonth === key ? "active":""}`;
+      btn.innerText = `${monthsName[d.getMonth()]} ${d.getFullYear()}`;
+      btn.onclick = () => { currentMonth=key; renderMonthNav(); renderAgendas(); };
+      nav.appendChild(btn);
+    }
+  }
+
+  function renderAgendas() {
+    const list = $("agendaList");
+    if (!list) return;
+    list.innerHTML = "";
+
+    let expanded = expandForMonth(agendas, currentMonth);
+    expanded = expanded.filter(item => isHistoryView ? isHistoryOccurrence(item) : !isHistoryOccurrence(item));
+
+    expanded.sort((a,b) => new Date(`${a.occurrenceDate}T${a.startTime||"00:00"}`) - new Date(`${b.occurrenceDate}T${b.startTime||"00:00"}`));
+
+    if (!expanded.length) {
+      list.innerHTML = `<div class="empty-state"><i class="fa-regular fa-calendar-xmark fa-2x" style="margin-bottom:10px;color:#94A3B8;"></i><br>${isHistoryView ? "No agenda history found for this month." : "No active agendas found for this month."}</div>`;
+      return;
+    }
+
+    const grouped = {};
+    expanded.forEach(item => (grouped[item.occurrenceDate] ||= []).push(item));
+
+    for (const date of Object.keys(grouped).sort()) {
+      const group = document.createElement("div");
+      group.className = "date-group";
+      const [y,m,d] = date.split("-");
+      const dateFormatted = `${parseInt(d)} ${monthsName[parseInt(m)-1]} ${y}`;
+      let itemsHTML = "";
+
+      grouped[date].forEach(item => {
+        const dirClass = getDirectorClass(item.director);
+        const start = item.startTime || "00:00";
+        const end = item.endTime ? ` - ${item.endTime}` : "";
+        itemsHTML += `
+          <div class="item-card ${dirClass}">
+            <div class="card-top">
+              <span class="time-badge"><i class="fa-regular fa-clock"></i> ${escapeHTML(start)}${escapeHTML(end)} WIB</span>
+              <span class="status-badge status-${escapeHTML(item.status)}">${escapeHTML(item.status)}</span>
+            </div>
+            <div class="agenda-title">${escapeHTML(item.title)}</div>
+            <div class="agenda-info">
+              ${item.director ? `<div class="info-row"><i class="fa-solid fa-user-check"></i><span><b>Director:</b> ${escapeHTML(item.director)}</span></div>` : ""}
+              ${item.location ? `<div class="info-row"><i class="fa-solid fa-location-dot"></i><span><b>Location:</b> ${escapeHTML(item.location)}</span></div>` : ""}
+              ${item.picInternal ? `<div class="info-row"><i class="fa-solid fa-user-tie"></i><span><b>Internal PIC:</b> ${escapeHTML(item.picInternal)}</span></div>` : ""}
+              ${item.picExternal ? `<div class="info-row"><i class="fa-solid fa-users"></i><span><b>External PIC:</b> ${escapeHTML(item.picExternal)}</span></div>` : ""}
+            </div>
+            ${isAdmin && item.notes ? `<div class="admin-note-box" style="display:block;"><i class="fa-solid fa-lock"></i> <b>Admin Notes:</b><br>${escapeHTML(item.notes)}</div>` : ""}
+            ${isAdmin ? `<div class="admin-actions" style="display:flex;">
+              <button class="btn btn-secondary" style="font-size:.85rem;" onclick="editAgenda('${escapeHTML(item.id)}')"><i class="fa-solid fa-pen"></i> Edit</button>
+              <button class="btn btn-secondary" style="font-size:.85rem;color:#B91C1C;" onclick="deleteAgenda('${escapeHTML(item.id)}')"><i class="fa-solid fa-trash"></i> Delete</button>
+            </div>` : ""}
+          </div>`;
+      });
+
+      group.innerHTML = `<div class="date-header"><i class="fa-regular fa-calendar-days"></i> ${dateFormatted}</div>${itemsHTML}`;
+      list.appendChild(group);
+    }
+  }
+
+  async function handleFormSubmit(e) {
+    e.preventDefault();
+    if (!isAdmin) return alert("Please login as Admin first.");
+
+    const id = $("editId").value || (crypto.randomUUID ? crypto.randomUUID() : Date.now().toString());
+    const item = {
+      id,
+      director: $("fDirector").value,
+      title: $("fTitle").value.trim(),
+      date: $("fDate").value,
+      startTime: $("fStartTime").value,
+      endTime: $("fEndTime").value,
+      location: $("fLocation").value.trim(),
+      picInternal: $("fPicInternal").value.trim(),
+      picExternal: $("fPicExternal").value.trim(),
+      status: $("fStatus").value,
+      notes: $("fNotes").value.trim()
+    };
+
+    if (!item.title || !item.date || !item.startTime) return alert("Please complete Title, Date and Start Time.");
+
+    try {
+      const r = await fetch(API, {
+        method:"POST",
+        headers:{"Content-Type":"application/json"},
+        body:JSON.stringify({action:"upsert", item})
+      });
+      const d = await r.json();
+      if (!r.ok) throw new Error(d.error || "Failed to save agenda.");
+      currentMonth = item.date.slice(0,7);
+      resetForm();
+      await fetchState(true);
+      alert("Agenda successfully saved and synchronized.");
+    } catch (err) {
+      alert("Failed to save agenda: " + err.message);
+    }
+  }
+
+  function editAgenda(id) {
+    const item = agendas.find(a => a.id === id);
+    if (!item) return;
+    $("editId").value = item.id;
+    $("fDirector").value = item.director || "Pak Johan";
+    $("fTitle").value = item.title || "";
+    $("fDate").value = item.date || "";
+    $("fStartTime").value = item.startTime || "";
+    $("fEndTime").value = item.endTime || "";
+    $("fLocation").value = item.location || "";
+    $("fPicInternal").value = item.picInternal || "";
+    $("fPicExternal").value = item.picExternal || "";
+    $("fStatus").value = item.status || "CONFIRMED";
+    $("fNotes").value = item.notes || "";
+    $("adminPanel").classList.add("active");
+    window.scrollTo({top:0,behavior:"smooth"});
+  }
+
+  async function deleteAgenda(id) {
+    if (!isAdmin) return;
+    if (!confirm("Are you sure you want to delete this agenda?")) return;
+    try {
+      const r = await fetch(API, {
+        method:"POST",
+        headers:{"Content-Type":"application/json"},
+        body:JSON.stringify({action:"delete", id})
+      });
+      const d = await r.json();
+      if (!r.ok) throw new Error(d.error || "Failed to delete agenda.");
+      await fetchState(true);
+    } catch (err) {
+      alert("Failed to delete agenda: " + err.message);
+    }
+  }
+
+  function resetForm() {
+    $("agendaForm").reset();
+    $("editId").value = "";
+    $("fDirector").value = "Pak Johan";
+    $("fStatus").value = "CONFIRMED";
+  }
+
+  window.toggleHistoryMode = toggleHistoryMode;
+  window.toggleAdminMode = toggleAdminMode;
+  window.handleLogin = handleLogin;
+  window.closeLogin = closeLogin;
+  window.handleFormSubmit = handleFormSubmit;
+  window.editAgenda = editAgenda;
+  window.deleteAgenda = deleteAgenda;
+  window.resetForm = resetForm;
+
+  renderMonthNav();
+  resetForm();
+  checkAdmin().then(() => fetchState(true));
+  startPolling();
+})();
+</script>
+
+</body>
+</html>
